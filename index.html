@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Genzverse</title>
+<title>Al-Qaeda</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -78,6 +78,7 @@ tr:last-child td{border-bottom:none}
     <button class="nb" onclick="showPage('expenses',this)">~/expenses</button>
     <button class="nb" onclick="showPage('meals',this)">~/meals</button>
     <button class="nb" onclick="showPage('notices',this)">~/notices</button>
+    <button class="nb" onclick="showPage('payments',this)">~/payments</button>
   </div>
 </div>
 
@@ -88,13 +89,14 @@ tr:last-child td{border-bottom:none}
       <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
       <span class="terminal-title">genzverse@mess:~$</span>
     </div>
-    <div class="hero-ascii">  ██████╗ ███████╗███╗   ██╗███████╗
- ██╔════╝ ██╔════╝████╗  ██║╚══███╔╝
- ██║  ███╗█████╗  ██╔██╗ ██║  ███╔╝ 
- ██║   ██║██╔══╝  ██║╚██╗██║ ███╔╝  
- ╚██████╔╝███████╗██║ ╚████║███████╗
-  ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚══════╝
-        V E R S E  — Mess 🏠</div>
+    <div class="hero-ascii">  
+ █████╗  ██╗            ██████╗   █████╗  ███████╗ ██████╗   █████╗
+██╔══██╗ ██║           ██╔═══██╗ ██╔══██╗ ██╔════╝ ██╔══██╗ ██╔══██╗
+███████║ ██║      ██║  ██║   ██║ ███████║ █████╗   ██║  ██║ ███████║
+██╔══██║ ██║           ██║▄▄ ██║ ██╔══██║ ██╔══╝   ██║  ██║ ██╔══██║
+██║  ██║ ███████╗      ╚██████╔╝ ██║  ██║ ███████╗ ██████╔╝ ██║  ██║
+╚═╝  ╚═╝ ╚══════╝       ╚══▀▀═╝  ╚═╝  ╚═╝ ╚══════╝ ╚═════╝  ╚═╝  ╚═╝
+        Al-Qaeda  — Mess 🏠</div>
     <div style="font-size:12px;color:#555">9 members · Kalyani, Nadia · Est. 2024</div>
   </div>
   <div class="stat-row">
@@ -132,14 +134,14 @@ tr:last-child td{border-bottom:none}
   <div class="section-title">All members (9)</div>
   <div class="members-grid">
     <div class="member-card"><div class="avatar" style="background:#1a1228;color:#AFA9EC">JK</div><div class="member-name">Jesan</div><div class="member-tag"></div></div>
-    <div class="member-card"><div class="avatar" style="background:#0a1f14;color:#5DCAA5">SB</div><div class="member-name">Subhasis</div><div class="member-tag"></div></div>
-    <div class="member-card"><div class="avatar" style="background:#1f0f0a;color:#F0997B">SR</div><div class="member-name">Sourish</div><div class="member-tag"></div></div>
-    <div class="member-card"><div class="avatar" style="background:#1f0a14;color:#ED93B1">SH</div><div class="member-name">Shahzad</div><div class="member-tag"></div></div>
-    <div class="member-card"><div class="avatar" style="background:#0f1f0a;color:#97C459">DG</div><div class="member-name">Diganta</div><div class="member-tag"></div></div>
-    <div class="member-card"><div class="avatar" style="background:#1f180a;color:#FAC775">SJ</div><div class="member-name">Surjya</div><div class="member-tag"></div></div>
-    <div class="member-card"><div class="avatar" style="background:#0a1428;color:#85B7EB">SM</div><div class="member-name">Soumadip</div><div class="member-tag"></div></div>
-    <div class="member-card"><div class="avatar" style="background:#1f0a0a;color:#F09595">AV</div><div class="member-name">Avijit</div><div class="member-tag"></div></div>
-    <div class="member-card"><div class="avatar" style="background:#1a1a14;color:#B4B2A9">NH</div><div class="member-name">Neha</div><div class="member-tag"></div></div>
+    <div class="member-card"><div class="avatar" style="background:#0a1f14;color:#5DCAA5">SS</div><div class="member-name">Subhasis</div><div class="member-tag"></div></div>
+    <div class="member-card"><div class="avatar" style="background:#1f0f0a;color:#F0997B">SG</div><div class="member-name">Sourish</div><div class="member-tag"></div></div>
+    <div class="member-card"><div class="avatar" style="background:#1f0a14;color:#ED93B1">SR</div><div class="member-name">Shahzad</div><div class="member-tag"></div></div>
+    <div class="member-card"><div class="avatar" style="background:#0f1f0a;color:#97C459">DN</div><div class="member-name">Diganta</div><div class="member-tag"></div></div>
+    <div class="member-card"><div class="avatar" style="background:#1f180a;color:#FAC775">SS</div><div class="member-name">Surjya</div><div class="member-tag"></div></div>
+    <div class="member-card"><div class="avatar" style="background:#0a1428;color:#85B7EB">SS</div><div class="member-name">Soumadip</div><div class="member-tag"></div></div>
+    <div class="member-card"><div class="avatar" style="background:#1f0a0a;color:#F09595">AJ</div><div class="member-name">Avijit</div><div class="member-tag"></div></div>
+    <div class="member-card"><div class="avatar" style="background:#1a1a14;color:#B4B2A9">NM</div><div class="member-name">Neha</div><div class="member-tag"></div></div>
   </div>
 </div>
 
@@ -233,6 +235,50 @@ tr:last-child td{border-bottom:none}
     </div>
   </div>
 </div>
+
+<!-- PAYMENTS -->
+<div id="page-payments" class="page">
+  <div class="section-title">Mess Payment Center</div>
+
+  <div class="terminal-card">
+    <div class="terminal-header">
+      <div class="dot dot-r"></div>
+      <div class="dot dot-y"></div>
+      <div class="dot dot-g"></div>
+      <span class="terminal-title">payment@genzverse:~$</span>
+    </div>
+
+    <div style="text-align:center">
+
+      <img
+        src="upi-qr.jpg"
+        alt="UPI QR"
+        style="max-width:300px;width:100%;border-radius:12px;border:1px solid #222;"
+      >
+
+      <h3 style="margin-top:15px;color:#00ff88">
+        Scan & Pay
+      </h3>
+
+      <p style="margin-top:8px;color:#888">
+        Monthly Mess Payment
+      </p>
+
+      <div class="note-box" style="margin-top:15px">
+        Per Head Amount: ₹2,089
+      </div>
+
+      <div style="margin-top:15px;font-size:13px;color:#aaa">
+        Admin: Jesan Khan
+      </div>
+
+      <div style="margin-top:8px;font-size:12px;color:#666">
+        After payment, send payment screenshot to the admin.
+      </div>
+
+    </div>
+  </div>
+</div>  
 
 <script>
 function showPage(id, btn) {
