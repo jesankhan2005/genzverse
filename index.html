@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Genzverse — IT Mess</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Courier New',monospace;background:#0a0a0f;color:#e8e8f0;min-height:100vh}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:#111118;border-bottom:1px solid #222;position:sticky;top:0;z-index:10}
+.logo{font-size:15px;font-weight:500;display:flex;align-items:center;gap:6px;color:#e8e8f0}
+.logo-tag{font-size:10px;padding:2px 6px;background:#EEEDFE;color:#3C3489;border-radius:4px}
+.nav-links{display:flex;gap:2px;flex-wrap:wrap}
+.nb{background:none;border:none;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:12px;color:#888;font-family:'Courier New',monospace}
+.nb:hover,.nb.active{background:#1a1a28;color:#e8e8f0}
+.page{display:none;padding:16px;max-width:800px;margin:0 auto}
+.page.active{display:block}
+.terminal-card{background:#111118;border:1px solid #222;border-radius:12px;padding:16px;margin-bottom:12px}
+.terminal-header{display:flex;align-items:center;gap:6px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #222}
+.dot{width:10px;height:10px;border-radius:50%}
+.dot-r{background:#E24B4A}.dot-y{background:#EF9F27}.dot-g{background:#639922}
+.terminal-title{font-size:12px;color:#555}
+.hero-ascii{font-size:10px;color:#639922;line-height:1.4;margin-bottom:12px;white-space:pre;overflow-x:auto}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.stat{background:#111118;border:1px solid #222;border-radius:8px;padding:12px;text-align:center}
+.stat-n{font-size:20px;font-weight:500;color:#00ff88}
+.stat-l{font-size:11px;color:#666;margin-top:2px}
+.section-title{font-size:11px;font-weight:500;margin-bottom:10px;color:#555;text-transform:uppercase;letter-spacing:.08em}
+.members-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.member-card{background:#111118;border:1px solid #222;border-radius:12px;padding:12px;text-align:center}
+.avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;margin:0 auto 8px}
+.member-name{font-size:13px;font-weight:500;color:#e8e8f0}
+.member-tag{font-size:11px;color:#555;margin-top:2px}
+.expense-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1a1a28;font-size:13px}
+.expense-row:last-child{border-bottom:none}
+.badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px}
+.bg{background:#0d2b0d;color:#00ff88}
+.ba{background:#2b1f0d;color:#EF9F27}
+.br{background:#2b0d0d;color:#E24B4A}
+.progress-bar{height:5px;background:#1a1a28;border-radius:3px;margin-top:8px;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px}
+table{width:100%;font-size:12px;border-collapse:collapse}
+th{background:#1a1a28;padding:8px 10px;text-align:left;font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#555;border-bottom:1px solid #222}
+td{padding:8px 10px;border-bottom:1px solid #1a1a28;color:#e8e8f0}
+tr:last-child td{border-bottom:none}
+.notice{display:flex;gap:10px;align-items:flex-start;padding:12px;background:#111118;border:1px solid #222;border-radius:8px;margin-bottom:8px}
+.notice-body .title{font-size:13px;font-weight:500;color:#e8e8f0}
+.notice-body .text{font-size:12px;color:#666;margin-top:2px}
+.notice-body .date{font-size:11px;color:#444;margin-top:4px}
+.add-btn{width:100%;padding:9px;background:none;border:1px dashed #333;border-radius:8px;cursor:pointer;font-size:12px;color:#555;margin-top:8px;font-family:'Courier New',monospace}
+.add-btn:hover{background:#1a1a28;color:#e8e8f0}
+.note-box{background:#0d2b0d;border:1px solid #1a5c1a;border-radius:8px;padding:10px;font-size:12px;color:#00ff88;margin-top:12px}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.quick-card{background:#111118;border:1px solid #222;border-radius:12px;padding:14px;cursor:pointer;transition:border-color .2s}
+.quick-card:hover{border-color:#00ff88}
+.quick-card i{font-size:18px;color:#00ff88}
+.quick-card p.qt{font-size:13px;font-weight:500;margin-top:8px;color:#e8e8f0}
+.quick-card p.qs{font-size:11px;color:#555}
+@media(max-width:480px){
+  .nav-links{gap:0}
+  .nb{padding:4px 6px;font-size:11px}
+  .members-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-ascii{font-size:8px}
+}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="logo">
+    <i class="ti ti-terminal-2"></i> Genzverse
+    <span class="logo-tag">IT Mess</span>
+  </div>
+  <div class="nav-links">
+    <button class="nb active" onclick="showPage('home',this)">~/home</button>
+    <button class="nb" onclick="showPage('members',this)">~/members</button>
+    <button class="nb" onclick="showPage('expenses',this)">~/expenses</button>
+    <button class="nb" onclick="showPage('meals',this)">~/meals</button>
+    <button class="nb" onclick="showPage('notices',this)">~/notices</button>
+  </div>
+</div>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="terminal-card">
+    <div class="terminal-header">
+      <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+      <span class="terminal-title">genzverse@mess:~$</span>
+    </div>
+    <div class="hero-ascii">  ██████╗ ███████╗███╗   ██╗███████╗
+ ██╔════╝ ██╔════╝████╗  ██║╚══███╔╝
+ ██║  ███╗█████╗  ██╔██╗ ██║  ███╔╝ 
+ ██║   ██║██╔══╝  ██║╚██╗██║ ███╔╝  
+ ╚██████╔╝███████╗██║ ╚████║███████╗
+  ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚══════╝
+        V E R S E  — IT Mess 🏠</div>
+    <div style="font-size:12px;color:#555">9 members · Kolkata · Est. 2024</div>
+  </div>
+  <div class="stat-row">
+    <div class="stat"><div class="stat-n">9</div><div class="stat-l">Members</div></div>
+    <div class="stat"><div class="stat-n">₹2,089</div><div class="stat-l">Per head/month</div></div>
+    <div class="stat"><div class="stat-n">3</div><div class="stat-l">Notices</div></div>
+  </div>
+  <div class="section-title">Quick access</div>
+  <div class="quick-grid">
+    <div class="quick-card" onclick="showPage('expenses',document.querySelectorAll('.nb')[2])">
+      <i class="ti ti-receipt"></i>
+      <p class="qt">Expenses</p>
+      <p class="qs">₹18,800 / month</p>
+    </div>
+    <div class="quick-card" onclick="showPage('meals',document.querySelectorAll('.nb')[3])">
+      <i class="ti ti-tools-kitchen-2"></i>
+      <p class="qt">Meal plan</p>
+      <p class="qs">Weekly schedule</p>
+    </div>
+    <div class="quick-card" onclick="showPage('members',document.querySelectorAll('.nb')[1])">
+      <i class="ti ti-users"></i>
+      <p class="qt">Members</p>
+      <p class="qs">All 9 members</p>
+    </div>
+    <div class="quick-card" onclick="showPage('notices',document.querySelectorAll('.nb')[4])">
+      <i class="ti ti-bell"></i>
+      <p class="qt">Notices</p>
+      <p class="qs">Important updates</p>
+    </div>
+  </div>
+</div>
+
+<!-- MEMBERS -->
+<div id="page-members" class="page">
+  <div class="section-title">All members (9)</div>
+  <div class="members-grid">
+    <div class="member-card"><div class="avatar" style="background:#1a1228;color:#AFA9EC">JK</div><div class="member-name">Jesan</div><div class="member-tag">IT Student</div></div>
+    <div class="member-card"><div class="avatar" style="background:#0a1f14;color:#5DCAA5">SB</div><div class="member-name">Subhasis</div><div class="member-tag">IT Student</div></div>
+    <div class="member-card"><div class="avatar" style="background:#1f0f0a;color:#F0997B">SR</div><div class="member-name">Sourish</div><div class="member-tag">IT Student</div></div>
+    <div class="member-card"><div class="avatar" style="background:#1f0a14;color:#ED93B1">SH</div><div class="member-name">Shahzad</div><div class="member-tag">IT Student</div></div>
+    <div class="member-card"><div class="avatar" style="background:#0f1f0a;color:#97C459">DG</div><div class="member-name">Diganta</div><div class="member-tag">IT Student</div></div>
+    <div class="member-card"><div class="avatar" style="background:#1f180a;color:#FAC775">SJ</div><div class="member-name">Surjya</div><div class="member-tag">IT Student</div></div>
+    <div class="member-card"><div class="avatar" style="background:#0a1428;color:#85B7EB">SM</div><div class="member-name">Soumadip</div><div class="member-tag">IT Student</div></div>
+    <div class="member-card"><div class="avatar" style="background:#1f0a0a;color:#F09595">AV</div><div class="member-name">Avijit</div><div class="member-tag">IT Student</div></div>
+    <div class="member-card"><div class="avatar" style="background:#1a1a14;color:#B4B2A9">NH</div><div class="member-name">Neha</div><div class="member-tag">IT Student</div></div>
+  </div>
+</div>
+
+<!-- EXPENSES -->
+<div id="page-expenses" class="page">
+  <div class="section-title">Monthly expenses — June 2026</div>
+  <div class="terminal-card">
+    <div class="expense-row">
+      <div><div style="font-weight:500">Groceries & Food</div><div style="font-size:11px;color:#555">Weekly market</div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span style="font-weight:500">₹12,000</span><span class="badge bg">Paid</span></div>
+    </div>
+    <div class="expense-row">
+      <div><div style="font-weight:500">Gas / Cooking fuel</div><div style="font-size:11px;color:#555">Monthly</div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span style="font-weight:500">₹2,800</span><span class="badge bg">Paid</span></div>
+    </div>
+    <div class="expense-row">
+      <div><div style="font-weight:500">Electricity</div><div style="font-size:11px;color:#555">Monthly</div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span style="font-weight:500">₹2,200</span><span class="badge ba">Pending</span></div>
+    </div>
+    <div class="expense-row">
+      <div><div style="font-weight:500">Miscellaneous</div><div style="font-size:11px;color:#555">Cleaning, toiletries</div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span style="font-weight:500">₹1,800</span><span class="badge ba">Pending</span></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;font-weight:500;font-size:14px;border-top:1px solid #1a1a28;margin-top:4px">
+      <span>Total monthly</span><span style="color:#00ff88">₹18,800</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:500">
+      <span>Per person (9 members)</span><span style="color:#00ff88">₹2,089</span>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#555;margin:8px 0 4px">
+        <span>Collected: ₹14,800</span><span>Target: ₹18,800</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:79%;background:#00ff88"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MEALS -->
+<div id="page-meals" class="page">
+  <div class="section-title">Weekly meal plan</div>
+  <div style="overflow-x:auto;border-radius:12px;border:1px solid #222">
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th><th>Lunch</th><th>Dinner</th><th>Market</th><th>Responsible</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Monday</td><td>Fish</td><td>Vegetables</td><td>Morning</td><td>Avijit + Surjya</td></tr>
+        <tr><td>Tuesday</td><td>Egg</td><td>Soyabean</td><td>Evening</td><td>Neha + Shahzad</td></tr>
+        <tr><td>Wednesday</td><td>Fish</td><td>Vegetables</td><td>Morning</td><td>Sourish + Soumadip</td></tr>
+        <tr><td>Thursday</td><td>Chicken</td><td>Soyabean</td><td>Evening</td><td>Jesan + Subhasis</td></tr>
+        <tr><td>Friday</td><td>Fish</td><td>Vegetables</td><td>Morning</td><td>Neha + Shahzad</td></tr>
+        <tr><td>Saturday</td><td>Egg</td><td>Soyabean</td><td>Evening</td><td>Avijit + Surjya</td></tr>
+        <tr><td>Sunday (L)</td><td>Vegetables</td><td>—</td><td>Morning</td><td>Jesan + Subhasis</td></tr>
+        <tr><td>Sunday (D)</td><td>—</td><td>Chicken</td><td>Evening</td><td>Sourish + Soumadip</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note-box">
+    ⚠️ Those whose turn it is to go to the market should ensure they collect the necessary funds and clarify exactly what needs to be purchased in advance.
+  </div>
+</div>
+
+<!-- NOTICES -->
+<div id="page-notices" class="page">
+  <div class="section-title">Notice board</div>
+  <div class="notice">
+    <div style="font-size:18px">📢</div>
+    <div class="notice-body">
+      <div class="title">Monthly expense due — ₹2,089 per person</div>
+      <div class="text">Please submit your share by 5th of every month. Contact Jesan for payment.</div>
+      <div class="date">Posted by Jesan · Pinned</div>
+    </div>
+  </div>
+  <div class="notice">
+    <div style="font-size:18px">🧹</div>
+    <div class="notice-body">
+      <div class="title">Cleaning rotation updated</div>
+      <div class="text">New schedule starts Monday. Check the chart on the notice board.</div>
+      <div class="date">Posted by Subhasis · 3 days ago</div>
+    </div>
+  </div>
+  <div class="notice">
+    <div style="font-size:18px">🛒</div>
+    <div class="notice-body">
+      <div class="title">Market reminder</div>
+      <div class="text">Collect funds and confirm shopping list before heading to market. No last minute changes!</div>
+      <div class="date">Posted by Sourish · 1 week ago</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if(btn) btn.classList.add('active');
+}
+</script>
+</body>
+</html>
