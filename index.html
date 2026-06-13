@@ -3,287 +3,786 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Al-Qaeda</title>
+<title>Al-Qaeda Mess — Free Fire</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Courier New',monospace;background:#0a0a0f;color:#e8e8f0;min-height:100vh}
-.nav{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:#111118;border-bottom:1px solid #222;position:sticky;top:0;z-index:10}
-.logo{font-size:15px;font-weight:500;display:flex;align-items:center;gap:6px;color:#e8e8f0}
-.logo-tag{font-size:10px;padding:2px 6px;background:#EEEDFE;color:#3C3489;border-radius:4px}
-.nav-links{display:flex;gap:2px;flex-wrap:wrap}
-.nb{background:none;border:none;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:12px;color:#888;font-family:'Courier New',monospace}
-.nb:hover,.nb.active{background:#1a1a28;color:#e8e8f0}
-.page{display:none;padding:16px;max-width:800px;margin:0 auto}
-.page.active{display:block}
-.terminal-card{background:#111118;border:1px solid #222;border-radius:12px;padding:16px;margin-bottom:12px}
-.terminal-header{display:flex;align-items:center;gap:6px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #222}
-.dot{width:10px;height:10px;border-radius:50%}
-.dot-r{background:#E24B4A}.dot-y{background:#EF9F27}.dot-g{background:#639922}
-.terminal-title{font-size:12px;color:#555}
-.hero-ascii{font-size:10px;color:#639922;line-height:1.4;margin-bottom:12px;white-space:pre;overflow-x:auto}
-.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
-.stat{background:#111118;border:1px solid #222;border-radius:8px;padding:12px;text-align:center}
-.stat-n{font-size:20px;font-weight:500;color:#00ff88}
-.stat-l{font-size:11px;color:#666;margin-top:2px}
-.section-title{font-size:11px;font-weight:500;margin-bottom:10px;color:#555;text-transform:uppercase;letter-spacing:.08em}
-.members-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
-.member-card{background:#111118;border:1px solid #222;border-radius:12px;padding:12px;text-align:center}
-.avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;margin:0 auto 8px}
-.member-name{font-size:13px;font-weight:500;color:#e8e8f0}
-.member-tag{font-size:11px;color:#555;margin-top:2px}
-.expense-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1a1a28;font-size:13px}
-.expense-row:last-child{border-bottom:none}
-.badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px}
-.bg{background:#0d2b0d;color:#00ff88}
-.ba{background:#2b1f0d;color:#EF9F27}
-.br{background:#2b0d0d;color:#E24B4A}
-.progress-bar{height:5px;background:#1a1a28;border-radius:3px;margin-top:8px;overflow:hidden}
-.progress-fill{height:100%;border-radius:3px}
-table{width:100%;font-size:12px;border-collapse:collapse}
-th{background:#1a1a28;padding:8px 10px;text-align:left;font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#555;border-bottom:1px solid #222}
-td{padding:8px 10px;border-bottom:1px solid #1a1a28;color:#e8e8f0}
-tr:last-child td{border-bottom:none}
-.notice{display:flex;gap:10px;align-items:flex-start;padding:12px;background:#111118;border:1px solid #222;border-radius:8px;margin-bottom:8px}
-.notice-body .title{font-size:13px;font-weight:500;color:#e8e8f0}
-.notice-body .text{font-size:12px;color:#666;margin-top:2px}
-.notice-body .date{font-size:11px;color:#444;margin-top:4px}
-.add-btn{width:100%;padding:9px;background:none;border:1px dashed #333;border-radius:8px;cursor:pointer;font-size:12px;color:#555;margin-top:8px;font-family:'Courier New',monospace}
-.add-btn:hover{background:#1a1a28;color:#e8e8f0}
-.note-box{background:#0d2b0d;border:1px solid #1a5c1a;border-radius:8px;padding:10px;font-size:12px;color:#00ff88;margin-top:12px}
-.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.quick-card{background:#111118;border:1px solid #222;border-radius:12px;padding:14px;cursor:pointer;transition:border-color .2s}
-.quick-card:hover{border-color:#00ff88}
-.quick-card i{font-size:18px;color:#00ff88}
-.quick-card p.qt{font-size:13px;font-weight:500;margin-top:8px;color:#e8e8f0}
-.quick-card p.qs{font-size:11px;color:#555}
-@media(max-width:480px){
-  .nav-links{gap:0}
-  .nb{padding:4px 6px;font-size:11px}
-  .members-grid{grid-template-columns:repeat(2,1fr)}
-  .hero-ascii{font-size:8px}
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;user-select:none;}
+
+body{
+  font-family:'Rajdhani',sans-serif;
+  background:#0a0c10;
+  color:#fff;
+  display:flex;flex-direction:column;
+  height:100vh;
+  position:relative;
+}
+
+/* ══════════════════════════════════
+   BACKGROUND — dark sci-fi arena
+══════════════════════════════════ */
+.bg{
+  position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 60%, rgba(20,60,120,0.25) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 15% 50%, rgba(10,30,60,0.3) 0%, transparent 60%),
+    linear-gradient(180deg,#07090d 0%,#0d1118 30%,#111820 60%,#0a0d12 100%);
+}
+.bg::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(40,120,255,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(40,120,255,0.03) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+/* floor glow */
+.bg::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:40%;
+  background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(0,180,255,0.07) 0%,transparent 70%);
+}
+
+/* ══════════════════════════════════
+   TOP BAR
+══════════════════════════════════ */
+.top-bar{
+  position:relative;z-index:50;
+  height:52px;
+  display:flex;align-items:center;
+  padding:0 10px;
+  background:linear-gradient(180deg,rgba(5,7,12,0.98) 0%,rgba(5,7,12,0.88) 100%);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  gap:10px;
+  flex-shrink:0;
+}
+
+/* Player card */
+.player-card{
+  display:flex;align-items:center;gap:0;
+  background:rgba(0,0,0,0.5);
+  border:1px solid rgba(255,255,255,0.1);
+  height:40px;
+}
+.player-thumb{
+  width:40px;height:40px;
+  background:linear-gradient(135deg,#1a2a3a,#2a3a4a);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;color:#88aacc;
+  border-right:1px solid rgba(255,255,255,0.1);
+  position:relative;flex-shrink:0;
+}
+.player-lvl{
+  position:absolute;bottom:0;left:0;right:0;
+  background:rgba(0,0,0,0.8);font-size:8px;text-align:center;
+  color:#aaa;font-family:'Share Tech Mono',monospace;
+}
+.player-info{padding:0 8px;}
+.player-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#e0e8f0;letter-spacing:.04em;}
+.player-status{font-size:10px;color:#4a9;font-family:'Share Tech Mono',monospace;display:flex;align-items:center;gap:3px;}
+
+/* rank badge */
+.rank-badge{
+  display:flex;align-items:center;justify-content:center;
+  width:32px;height:32px;
+  background:linear-gradient(135deg,#8b0000,#cc2200);
+  border:1px solid rgba(255,100,50,0.4);
+  border-radius:2px;
+}
+.rank-badge i{font-size:16px;color:#ff6644;}
+
+/* currency */
+.currencies{display:flex;align-items:center;gap:8px;margin-left:4px;}
+.cur{
+  display:flex;align-items:center;gap:5px;
+  background:rgba(0,0,0,0.45);
+  border:1px solid rgba(255,200,0,0.2);
+  border-radius:20px;
+  padding:3px 10px 3px 6px;height:28px;
+}
+.cur-ico{font-size:14px;line-height:1;}
+.cur-val{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;color:#ffd050;}
+.cur-plus{font-size:14px;color:#ffd050;margin-left:2px;font-weight:700;}
+
+/* center icons */
+.top-center{flex:1;display:flex;align-items:center;justify-content:center;gap:12px;}
+.top-ico{
+  width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(255,180,0,0.15),rgba(255,180,0,0.05));
+  border:1px solid rgba(255,180,0,0.3);border-radius:4px;cursor:pointer;
+  font-size:16px;color:#ffc030;
+  transition:.15s;
+}
+.top-ico:hover{border-color:#ffd050;background:rgba(255,200,0,0.2);}
+.top-ico.special{
+  background:linear-gradient(135deg,rgba(255,150,0,0.3),rgba(200,100,0,0.15));
+  border-color:rgba(255,180,0,0.5);
+  box-shadow:0 0 10px rgba(255,150,0,0.2);
+}
+
+/* logo */
+.ff-logo{
+  font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;
+  background:linear-gradient(135deg,#fff 0%,#ffd050 50%,#ff8800 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  letter-spacing:.05em;
+  text-shadow:none;
+  line-height:1;
+}
+.ff-logo span{display:block;font-size:9px;letter-spacing:.18em;text-align:right;
+  background:linear-gradient(90deg,#ffd050,#ff8800);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+/* top right */
+.top-right{display:flex;align-items:center;gap:6px;}
+.tr-ico{
+  width:30px;height:30px;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+  border-radius:4px;cursor:pointer;font-size:15px;color:#778899;transition:.15s;
+}
+.tr-ico:hover{color:#aabbcc;border-color:rgba(255,255,255,0.2);}
+
+/* ══════════════════════════════════
+   MAIN LAYOUT
+══════════════════════════════════ */
+.main{
+  position:relative;z-index:10;
+  flex:1;display:flex;overflow:hidden;
+}
+
+/* ══════════════════════════════════
+   LEFT SIDEBAR
+══════════════════════════════════ */
+.left-col{
+  width:165px;flex-shrink:0;
+  display:flex;flex-direction:column;
+  padding:8px 0 8px 8px;
+  gap:0;
+  position:relative;z-index:20;
+}
+
+/* Event banner at top */
+.event-banner{
+  width:155px;height:64px;
+  background:linear-gradient(135deg,#1a0a2a,#2a0a1a,#1a1a00);
+  border:1px solid rgba(200,100,255,0.4);
+  border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:10px;
+  position:relative;overflow:hidden;cursor:pointer;
+  flex-shrink:0;
+}
+.event-banner::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(45deg,rgba(150,50,255,0.2),rgba(255,100,50,0.15),rgba(255,200,0,0.1));
+}
+.event-banner-text{
+  font-family:'Orbitron',sans-serif;font-size:13px;font-weight:900;
+  color:#fff;letter-spacing:.06em;text-align:center;position:relative;z-index:1;
+  text-shadow:0 0 10px rgba(200,100,255,0.8);
+  line-height:1.2;
+}
+.event-banner-text span{display:block;font-size:8px;color:#ffcc44;letter-spacing:.12em;}
+
+/* Side menu buttons — exact FF style */
+.side-btn{
+  display:flex;align-items:center;gap:9px;
+  width:155px;height:40px;
+  padding:0 12px;
+  margin-bottom:3px;
+  background:linear-gradient(90deg,rgba(0,0,0,0.75) 0%,rgba(0,0,0,0.4) 100%);
+  border:1px solid rgba(255,255,255,0.07);
+  border-left:none;
+  cursor:pointer;transition:.12s;
+  position:relative;overflow:hidden;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+}
+.side-btn::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:rgba(255,180,0,0.4);
+}
+.side-btn:hover{
+  background:linear-gradient(90deg,rgba(255,180,0,0.18) 0%,rgba(255,180,0,0.05) 100%);
+  border-color:rgba(255,180,0,0.35);
+}
+.side-btn:hover::before,.side-btn.active::before{background:var(--gold,#ffd050);}
+.side-btn.active{
+  background:linear-gradient(90deg,rgba(255,180,0,0.22) 0%,rgba(255,180,0,0.06) 100%);
+  border-color:rgba(255,180,0,0.4);
+}
+.side-btn i{font-size:17px;color:#ffcc44;flex-shrink:0;}
+.side-btn span{
+  font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;
+  color:#ddeeff;letter-spacing:.06em;text-transform:uppercase;
+}
+.side-btn:hover span,.side-btn.active span{color:#ffd050;}
+
+/* ══════════════════════════════════
+   CENTER STAGE
+══════════════════════════════════ */
+.center-stage{
+  flex:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+
+/* Content pages */
+.page{
+  display:none;
+  width:100%;max-width:520px;
+  max-height:calc(100vh - 160px);
+  overflow-y:auto;
+  padding:4px 8px;
+}
+.page.active{display:block;}
+.page::-webkit-scrollbar{width:3px;}
+.page::-webkit-scrollbar-thumb{background:rgba(255,200,0,0.25);}
+
+/* page header */
+.ph{
+  background:linear-gradient(90deg,rgba(255,180,0,0.15),transparent);
+  border-left:3px solid #ffd050;
+  padding:7px 12px;margin-bottom:10px;
+}
+.ph h2{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;color:#ffd050;letter-spacing:.1em;}
+.ph p{font-size:11px;color:#667788;font-family:'Share Tech Mono',monospace;margin-top:1px;}
+
+/* stat row */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px;}
+.stat{
+  background:rgba(0,0,0,0.6);border:1px solid rgba(255,200,0,0.18);
+  padding:10px 6px;text-align:center;
+  clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));
+  position:relative;
+}
+.stat::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,#ffd050,transparent);}
+.stat-n{font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:#ffd050;text-shadow:0 0 8px rgba(255,200,0,.4);}
+.stat-l{font-size:10px;color:#556677;text-transform:uppercase;letter-spacing:.06em;margin-top:2px;font-family:'Share Tech Mono',monospace;}
+
+/* quick grid */
+.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.qcard{
+  background:rgba(0,0,0,0.6);border:1px solid rgba(255,200,0,0.15);
+  padding:11px 12px;cursor:pointer;transition:.12s;
+  clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));
+}
+.qcard:hover{border-color:#ffd050;background:rgba(255,200,0,0.07);}
+.qcard i{font-size:17px;color:#ffcc44;}
+.qcard .qt{font-size:14px;font-weight:700;margin-top:6px;color:#ddeeff;}
+.qcard .qs{font-size:10px;color:#556677;font-family:'Share Tech Mono',monospace;margin-top:2px;}
+
+/* members */
+.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
+.mc{
+  background:rgba(0,0,0,0.6);border:1px solid rgba(255,200,0,0.15);
+  padding:10px 6px;text-align:center;transition:.12s;
+  clip-path:polygon(0 0,calc(100% - 5px) 0,100% 5px,100% 100%,5px 100%,0 calc(100% - 5px));
+}
+.mc:hover{border-color:#ffd050;background:rgba(255,200,0,0.06);}
+.av{
+  width:38px;height:38px;margin:0 auto 6px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;
+  clip-path:polygon(0 0,calc(100% - 4px) 0,100% 4px,100% 100%,4px 100%,0 calc(100% - 4px));
+}
+.mn{font-size:12px;font-weight:700;color:#ddeeff;}
+.mt{font-size:9px;color:#556677;font-family:'Share Tech Mono',monospace;}
+
+/* expenses */
+.panel{background:rgba(0,0,0,0.6);border:1px solid rgba(255,200,0,0.15);padding:12px;margin-bottom:8px;position:relative;}
+.panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,#ffd050,transparent 60%);}
+.er{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;}
+.er:last-of-type{border-bottom:none;}
+.el{font-weight:700;color:#ddeeff;}
+.es{font-size:10px;color:#556677;font-family:'Share Tech Mono',monospace;margin-top:1px;}
+.badge{display:inline-block;padding:2px 8px;font-family:'Share Tech Mono',monospace;font-size:10px;clip-path:polygon(3px 0,100% 0,calc(100% - 3px) 100%,0 100%);}
+.bg{background:rgba(0,255,100,.08);color:#44ff88;border:1px solid rgba(0,255,100,.2);}
+.ba{background:rgba(255,200,0,.1);color:#ffd050;border:1px solid rgba(255,200,0,.25);}
+.pb{height:4px;background:rgba(255,255,255,0.07);margin-top:8px;}
+.pf{height:100%;background:linear-gradient(90deg,#ff8800,#ffd050);box-shadow:0 0 6px rgba(255,180,0,.5);}
+
+/* table */
+.tw{overflow-x:auto;border:1px solid rgba(255,200,0,0.15);}
+table{width:100%;font-size:12px;border-collapse:collapse;}
+th{background:rgba(0,0,0,0.8);padding:7px 9px;text-align:left;font-family:'Share Tech Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:#ffd050;border-bottom:1px solid rgba(255,200,0,0.15);}
+td{padding:7px 9px;border-bottom:1px solid rgba(255,255,255,0.04);color:#ccd8e0;font-weight:600;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(255,200,0,0.03);}
+
+/* notices */
+.notice{display:flex;gap:10px;align-items:flex-start;padding:11px;background:rgba(0,0,0,0.6);border:1px solid rgba(255,200,0,0.15);margin-bottom:7px;border-left:3px solid #ffd050;}
+.notice .title{font-size:13px;font-weight:700;color:#ddeeff;}
+.notice .text{font-size:11px;color:#667788;margin-top:3px;}
+.notice .date{font-family:'Share Tech Mono',monospace;font-size:9px;color:#445566;margin-top:5px;}
+
+/* note */
+.note{background:rgba(255,200,0,0.05);border:1px solid rgba(255,200,0,0.2);padding:9px 11px;font-family:'Share Tech Mono',monospace;font-size:11px;color:#ffd050;margin-top:9px;}
+
+/* hero ascii */
+.ascii{font-family:'Share Tech Mono',monospace;font-size:7.5px;color:rgba(255,210,50,0.55);line-height:1.3;white-space:pre;overflow:hidden;margin-bottom:7px;text-shadow:0 0 5px rgba(255,200,0,.2);}
+.asub{font-family:'Share Tech Mono',monospace;font-size:10px;color:#445566;letter-spacing:.07em;margin-bottom:9px;}
+
+/* ══════════════════════════════════
+   RIGHT SIDEBAR
+══════════════════════════════════ */
+.right-col{
+  width:68px;flex-shrink:0;
+  display:flex;flex-direction:column;
+  padding:6px 5px 6px 4px;
+  gap:4px;align-items:center;
+  position:relative;z-index:20;
+}
+.rp{
+  width:56px;height:56px;
+  background:linear-gradient(135deg,#0a1520,#111f30);
+  border:1px solid rgba(255,255,255,0.1);border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Orbitron',sans-serif;font-size:9px;font-weight:700;
+  color:#88aacc;cursor:pointer;position:relative;transition:.12s;
+  overflow:hidden;
+}
+.rp:hover{border-color:rgba(255,200,0,0.4);}
+.rp-name{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.85);font-size:8px;text-align:center;padding:1px 0;color:#667788;font-family:'Share Tech Mono',monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rp-add{
+  width:20px;height:20px;background:rgba(0,200,100,0.2);border:1px solid rgba(0,255,100,0.3);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:#44ff88;cursor:pointer;align-self:flex-end;margin-top:-18px;margin-right:-2px;
+  position:relative;z-index:2;
+}
+.r-arrow{
+  width:24px;height:40px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.08);
+  border-radius:3px;display:flex;align-items:center;justify-content:center;
+  color:#445566;font-size:13px;cursor:pointer;margin-top:auto;
+}
+
+/* ══════════════════════════════════
+   BOTTOM BAR
+══════════════════════════════════ */
+.bot-bar{
+  position:relative;z-index:50;
+  height:56px;
+  display:flex;align-items:stretch;
+  background:linear-gradient(0deg,rgba(3,5,8,0.99) 0%,rgba(5,8,13,0.94) 100%);
+  border-top:1px solid rgba(255,255,255,0.07);
+  flex-shrink:0;
+}
+
+/* FF logo small left */
+.bot-ff-logo{
+  width:48px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,0.5);
+  border-right:1px solid rgba(255,255,255,0.06);
+  font-family:'Orbitron',sans-serif;font-size:8px;font-weight:900;color:#ffd050;
+  writing-mode:vertical-rl;letter-spacing:.1em;
+}
+
+/* Bottom nav buttons */
+.bot-nav{
+  flex:1;display:flex;align-items:stretch;
+  border-right:1px solid rgba(255,255,255,0.06);
+}
+.bot-btn{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;cursor:pointer;background:transparent;border:none;
+  border-right:1px solid rgba(255,255,255,0.05);
+  color:#667788;transition:.12s;
+  position:relative;
+}
+.bot-btn:last-child{border-right:none;}
+.bot-btn:hover,.bot-btn.active{background:rgba(255,200,0,0.06);color:#ffd050;}
+.bot-btn i{font-size:17px;}
+.bot-btn span{font-size:10px;font-weight:700;letter-spacing:.06em;font-family:'Rajdhani',sans-serif;}
+
+/* Right section — mode + START */
+.bot-right{
+  display:flex;align-items:stretch;
+  flex-direction:column;
+  width:200px;flex-shrink:0;
+}
+
+/* mode row */
+.mode-row{
+  flex:1;display:flex;align-items:center;
+  background:rgba(0,0,0,0.4);
+  border-bottom:1px solid rgba(255,200,0,0.12);
+  padding:0 10px;gap:8px;
+}
+.mode-icon{
+  width:28px;height:28px;
+  background:linear-gradient(135deg,#4a2000,#7a3a00);
+  border:1px solid rgba(255,150,0,0.4);border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:#ffa030;
+}
+.mode-text .mt1{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;color:#ffd050;letter-spacing:.06em;}
+.mode-text .mt2{font-family:'Share Tech Mono',monospace;font-size:9px;color:#556677;display:flex;align-items:center;gap:3px;}
+.mode-text .mt2 i{font-size:9px;color:#ffcc44;}
+
+/* START button row */
+.start-row{
+  display:flex;align-items:stretch;
+  flex:1.2;
+}
+.start-num{
+  width:36px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:rgba(0,0,0,0.5);
+  border-right:1px solid rgba(255,200,0,0.15);
+  gap:2px;
+}
+.start-num .sn1{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:700;color:#ffd050;}
+.start-num .sn2{font-size:9px;color:#445566;font-family:'Share Tech Mono',monospace;}
+
+.start-btn{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#c87000 0%,#f5a800 35%,#ffd050 55%,#f5a800 75%,#c87000 100%);
+  border:none;cursor:pointer;
+  font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;
+  color:#1a0800;letter-spacing:.12em;
+  text-shadow:0 1px 0 rgba(255,255,255,0.25);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.25),0 0 20px rgba(245,168,0,0.35);
+  position:relative;overflow:hidden;transition:.12s;
+}
+.start-btn::after{
+  content:'C';
+  position:absolute;top:3px;right:5px;
+  font-size:8px;font-weight:400;color:rgba(0,0,0,0.35);
+  font-family:'Share Tech Mono',monospace;letter-spacing:0;
+}
+.start-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,0.15) 0%,transparent 50%);
+}
+.start-btn:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 0 30px rgba(245,168,0,0.6);}
+
+/* scanlines */
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.035) 2px,rgba(0,0,0,0.035) 4px);}
+
+/* scroll */
+.page::-webkit-scrollbar{width:3px;}
+.page::-webkit-scrollbar-track{background:transparent;}
+.page::-webkit-scrollbar-thumb{background:rgba(255,200,0,0.2);}
+
+/* responsive */
+@media(max-width:600px){
+  .left-col{width:120px;}
+  .side-btn{width:115px;}
+  .side-btn span{font-size:12px;}
+  .right-col{width:0;overflow:hidden;padding:0;}
+  .event-banner{width:115px;}
+  .bot-right{width:150px;}
+  .start-btn{font-size:16px;}
+  .ascii{font-size:6px;}
 }
 </style>
 </head>
 <body>
 
-<div class="nav">
-  <div class="logo">
-    <i class="ti ti-terminal-2"></i> Genzverse
-    <span class="logo-tag"></span>
+<div class="bg"></div>
+
+<!-- ═══════════ TOP BAR ═══════════ -->
+<div class="top-bar">
+
+  <!-- Player -->
+  <div class="player-card">
+    <div class="player-thumb">
+      AQ
+      <div class="player-lvl">60</div>
+    </div>
+    <div class="player-info">
+      <div class="player-name">EN_JONY</div>
+      <div class="player-status"><i class="ti ti-check" style="font-size:9px"></i> NO ENTRY ✓</div>
+    </div>
   </div>
-  <div class="nav-links">
-    <button class="nb active" onclick="showPage('home',this)">~/home</button>
-    <button class="nb" onclick="showPage('members',this)">~/members</button>
-    <button class="nb" onclick="showPage('expenses',this)">~/expenses</button>
-    <button class="nb" onclick="showPage('meals',this)">~/meals</button>
-    <button class="nb" onclick="showPage('notices',this)">~/notices</button>
-    <button class="nb" onclick="showPage('payments',this)">~/payments</button>
+
+  <!-- Rank -->
+  <div class="rank-badge"><i class="ti ti-shield-half"></i></div>
+
+  <!-- Currencies -->
+  <div class="currencies">
+    <div class="cur">
+      <span class="cur-ico">🟡</span>
+      <span class="cur-val">18,800</span>
+    </div>
+    <div class="cur">
+      <span class="cur-ico">💎</span>
+      <span class="cur-val">2350</span>
+      <span class="cur-plus">+</span>
+    </div>
   </div>
+
+  <!-- Center icons -->
+  <div class="top-center">
+    <div class="top-ico special">🏆</div>
+    <div class="top-ico">📦</div>
+    <div class="top-ico">☁️</div>
+  </div>
+
+  <!-- Logo -->
+  <div class="ff-logo">AL-QAEDA<span>MESS</span></div>
+
+  <!-- Right icons -->
+  <div class="top-right">
+    <div class="tr-ico"><i class="ti ti-shield"></i></div>
+    <div class="tr-ico"><i class="ti ti-users"></i></div>
+    <div class="tr-ico"><i class="ti ti-mail"></i></div>
+    <div class="tr-ico"><i class="ti ti-settings"></i></div>
+    <div class="tr-ico"><i class="ti ti-wifi"></i></div>
+  </div>
+
 </div>
 
-<!-- HOME -->
-<div id="page-home" class="page active">
-  <div class="terminal-card">
-    <div class="terminal-header">
-      <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
-      <span class="terminal-title">genzverse@mess:~$</span>
+<!-- ═══════════ MAIN ═══════════ -->
+<div class="main">
+
+  <!-- LEFT COL -->
+  <div class="left-col">
+
+    <div class="event-banner">
+      <div class="event-banner-text">
+        AL-QAEDA<br>
+        <span>MESS</span>
+      </div>
     </div>
-    <div class="hero-ascii">  
+
+    <div class="side-btn active" onclick="showPage('home',this)">
+      <i class="ti ti-home"></i><span>HOME</span>
+    </div>
+    <div class="side-btn" onclick="showPage('members',this)">
+      <i class="ti ti-users"></i><span>SQUAD</span>
+    </div>
+    <div class="side-btn" onclick="showPage('expenses',this)">
+      <i class="ti ti-receipt"></i><span>EXPENSES</span>
+    </div>
+    <div class="side-btn" onclick="showPage('meals',this)">
+      <i class="ti ti-tools-kitchen-2"></i><span>MEALS</span>
+    </div>
+    <div class="side-btn" onclick="showPage('notices',this)">
+      <i class="ti ti-speakerphone"></i><span>NOTICES</span>
+    </div>
+    <div class="side-btn" onclick="showPage('payments',this)">
+      <i class="ti ti-qrcode"></i><span>PAY</span>
+    </div>
+
+  </div>
+
+  <!-- CENTER -->
+  <div class="center-stage">
+
+    <!-- HOME -->
+    <div id="page-home" class="page active">
+      <div class="ascii"> 
  █████╗  ██╗            ██████╗   █████╗  ███████╗ ██████╗   █████╗
 ██╔══██╗ ██║           ██╔═══██╗ ██╔══██╗ ██╔════╝ ██╔══██╗ ██╔══██╗
 ███████║ ██║      ██║  ██║   ██║ ███████║ █████╗   ██║  ██║ ███████║
 ██╔══██║ ██║           ██║▄▄ ██║ ██╔══██║ ██╔══╝   ██║  ██║ ██╔══██║
 ██║  ██║ ███████╗      ╚██████╔╝ ██║  ██║ ███████╗ ██████╔╝ ██║  ██║
 ╚═╝  ╚═╝ ╚══════╝       ╚══▀▀═╝  ╚═╝  ╚═╝ ╚══════╝ ╚═════╝  ╚═╝  ╚═╝
-        Al-Qaeda  — Mess 🏠</div>
-    <div style="font-size:12px;color:#555">9 members · Kalyani, Nadia · Est. 2024</div>
-  </div>
-  <div class="stat-row">
-    <div class="stat"><div class="stat-n">9</div><div class="stat-l">Members</div></div>
-    <div class="stat"><div class="stat-n">₹2,089</div><div class="stat-l">Per head/month</div></div>
-    <div class="stat"><div class="stat-n">3</div><div class="stat-l">Notices</div></div>
-  </div>
-  <div class="section-title">Quick access</div>
-  <div class="quick-grid">
-    <div class="quick-card" onclick="showPage('expenses',document.querySelectorAll('.nb')[2])">
-      <i class="ti ti-receipt"></i>
-      <p class="qt">Expenses</p>
-      <p class="qs">₹18,800 / month</p>
-    </div>
-    <div class="quick-card" onclick="showPage('meals',document.querySelectorAll('.nb')[3])">
-      <i class="ti ti-tools-kitchen-2"></i>
-      <p class="qt">Meal plan</p>
-      <p class="qs">Weekly schedule</p>
-    </div>
-    <div class="quick-card" onclick="showPage('members',document.querySelectorAll('.nb')[1])">
-      <i class="ti ti-users"></i>
-      <p class="qt">Members</p>
-      <p class="qs">All 9 members</p>
-    </div>
-    <div class="quick-card" onclick="showPage('notices',document.querySelectorAll('.nb')[4])">
-      <i class="ti ti-bell"></i>
-      <p class="qt">Notices</p>
-      <p class="qs">Important updates</p>
-    </div>
-  </div>
-</div>
-
-<!-- MEMBERS -->
-<div id="page-members" class="page">
-  <div class="section-title">All members (9)</div>
-  <div class="members-grid">
-    <div class="member-card"><div class="avatar" style="background:#1a1228;color:#AFA9EC">JK</div><div class="member-name">Jesan</div><div class="member-tag"></div></div>
-    <div class="member-card"><div class="avatar" style="background:#0a1f14;color:#5DCAA5">SS</div><div class="member-name">Subhasis</div><div class="member-tag"></div></div>
-    <div class="member-card"><div class="avatar" style="background:#1f0f0a;color:#F0997B">SG</div><div class="member-name">Sourish</div><div class="member-tag"></div></div>
-    <div class="member-card"><div class="avatar" style="background:#1f0a14;color:#ED93B1">SR</div><div class="member-name">Shahzad</div><div class="member-tag"></div></div>
-    <div class="member-card"><div class="avatar" style="background:#0f1f0a;color:#97C459">DN</div><div class="member-name">Diganta</div><div class="member-tag"></div></div>
-    <div class="member-card"><div class="avatar" style="background:#1f180a;color:#FAC775">SS</div><div class="member-name">Surjya</div><div class="member-tag"></div></div>
-    <div class="member-card"><div class="avatar" style="background:#0a1428;color:#85B7EB">SS</div><div class="member-name">Soumadip</div><div class="member-tag"></div></div>
-    <div class="member-card"><div class="avatar" style="background:#1f0a0a;color:#F09595">AJ</div><div class="member-name">Avijit</div><div class="member-tag"></div></div>
-    <div class="member-card"><div class="avatar" style="background:#1a1a14;color:#B4B2A9">NM</div><div class="member-name">Neha</div><div class="member-tag"></div></div>
-  </div>
-</div>
-
-<!-- EXPENSES -->
-<div id="page-expenses" class="page">
-  <div class="section-title">Monthly expenses — June 2026</div>
-  <div class="terminal-card">
-    <div class="expense-row">
-      <div><div style="font-weight:500">Groceries & Food</div><div style="font-size:11px;color:#555">Weekly market</div></div>
-      <div style="display:flex;align-items:center;gap:8px"><span style="font-weight:500">₹12,000</span><span class="badge bg">Paid</span></div>
-    </div>
-    <div class="expense-row">
-      <div><div style="font-weight:500">Gas / Cooking fuel</div><div style="font-size:11px;color:#555">Monthly</div></div>
-      <div style="display:flex;align-items:center;gap:8px"><span style="font-weight:500">₹2,800</span><span class="badge bg">Paid</span></div>
-    </div>
-    <div class="expense-row">
-      <div><div style="font-weight:500">Electricity</div><div style="font-size:11px;color:#555">Monthly</div></div>
-      <div style="display:flex;align-items:center;gap:8px"><span style="font-weight:500">₹2,200</span><span class="badge ba">Pending</span></div>
-    </div>
-    <div class="expense-row">
-      <div><div style="font-weight:500">Miscellaneous</div><div style="font-size:11px;color:#555">Cleaning, toiletries</div></div>
-      <div style="display:flex;align-items:center;gap:8px"><span style="font-weight:500">₹1,800</span><span class="badge ba">Pending</span></div>
-    </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;font-weight:500;font-size:14px;border-top:1px solid #1a1a28;margin-top:4px">
-      <span>Total monthly</span><span style="color:#00ff88">₹18,800</span>
-    </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:500">
-      <span>Per person (9 members)</span><span style="color:#00ff88">₹2,089</span>
-    </div>
-    <div>
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#555;margin:8px 0 4px">
-        <span>Collected: ₹14,800</span><span>Target: ₹18,800</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" style="width:79%;background:#00ff88"></div></div>
-    </div>
-  </div>
-</div>
-
-<!-- MEALS -->
-<div id="page-meals" class="page">
-  <div class="section-title">Weekly meal plan</div>
-  <div style="overflow-x:auto;border-radius:12px;border:1px solid #222">
-    <table>
-      <thead>
-        <tr>
-          <th>Day</th><th>Lunch</th><th>Dinner</th><th>Market</th><th>Responsible</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Monday</td><td>Fish</td><td>Vegetables</td><td>Morning</td><td>Avijit + Surjya</td></tr>
-        <tr><td>Tuesday</td><td>Egg</td><td>Soyabean</td><td>Evening</td><td>Neha + Shahzad</td></tr>
-        <tr><td>Wednesday</td><td>Fish</td><td>Vegetables</td><td>Morning</td><td>Sourish + Soumadip</td></tr>
-        <tr><td>Thursday</td><td>Chicken</td><td>Soyabean</td><td>Evening</td><td>Jesan + Subhasis</td></tr>
-        <tr><td>Friday</td><td>Fish</td><td>Vegetables</td><td>Morning</td><td>Neha + Shahzad</td></tr>
-        <tr><td>Saturday</td><td>Egg</td><td>Soyabean</td><td>Evening</td><td>Avijit + Surjya</td></tr>
-        <tr><td>Sunday (L)</td><td>Vegetables</td><td>—</td><td>Morning</td><td>Jesan + Subhasis</td></tr>
-        <tr><td>Sunday (D)</td><td>—</td><td>Chicken</td><td>Evening</td><td>Sourish + Soumadip</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="note-box">
-    ⚠️ Those whose turn it is to go to the market should ensure they collect the necessary funds and clarify exactly what needs to be purchased in advance.
-  </div>
-</div>
-
-<!-- NOTICES -->
-<div id="page-notices" class="page">
-  <div class="section-title">Notice board</div>
-  <div class="notice">
-    <div style="font-size:18px">📢</div>
-    <div class="notice-body">
-      <div class="title">Monthly expense due — ₹2,089 per person</div>
-      <div class="text">Please submit your share by 5th of every month. Contact Jesan for payment.</div>
-      <div class="date">Posted by Jesan · Pinned</div>
-    </div>
-  </div>
-  <div class="notice">
-    <div style="font-size:18px">🧹</div>
-    <div class="notice-body">
-      <div class="title">Cleaning rotation updated</div>
-      <div class="text">New schedule starts Monday. Check the chart on the notice board.</div>
-      <div class="date">Posted by Subhasis · 3 days ago</div>
-    </div>
-  </div>
-  <div class="notice">
-    <div style="font-size:18px">🛒</div>
-    <div class="notice-body">
-      <div class="title">Market reminder</div>
-      <div class="text">Collect funds and confirm shopping list before heading to market. No last minute changes!</div>
-      <div class="date">Posted by Sourish · 1 week ago</div>
-    </div>
-  </div>
-</div>
-
-<!-- PAYMENTS -->
-<div id="page-payments" class="page">
-  <div class="section-title">Mess Payment Center</div>
-
-  <div class="terminal-card">
-    <div class="terminal-header">
-      <div class="dot dot-r"></div>
-      <div class="dot dot-y"></div>
-      <div class="dot dot-g"></div>
-      <span class="terminal-title">payment@genzverse:~$</span>
-    </div>
-
-    <div style="text-align:center">
-
-      <img
-        src="upi-qr.jpg"
-        alt="UPI QR"
-        style="max-width:300px;width:100%;border-radius:12px;border:1px solid #222;"
-      >
-
-      <h3 style="margin-top:15px;color:#00ff88">
-        Scan & Pay
-      </h3>
-
-      <p style="margin-top:8px;color:#888">
-        Monthly Mess Payment
-      </p>
-
-      <div class="note-box" style="margin-top:15px">
-        Per Head Amount: ₹2,089
+      <div class="asub">Al-Qaeda Mess · Kalyani,Nadia · Est. 2024</div>
+      <div class="stat-row">
+        <div class="stat"><div class="stat-n">9</div><div class="stat-l">Members</div></div>
+        <div class="stat"><div class="stat-n">₹2,350</div><div class="stat-l">Per head</div></div>
+        <div class="stat"><div class="stat-n">3</div><div class="stat-l">Notices</div></div>
       </div>
-
-      <div style="margin-top:15px;font-size:13px;color:#aaa">
-        Admin: Jesan Khan
+      <div class="qgrid">
+        <div class="qcard" onclick="showPage('expenses',document.querySelectorAll('.side-btn')[2])">
+          <i class="ti ti-receipt"></i>
+          <p class="qt">Expenses</p><p class="qs">₹18,800 / month</p>
+        </div>
+        <div class="qcard" onclick="showPage('meals',document.querySelectorAll('.side-btn')[3])">
+          <i class="ti ti-tools-kitchen-2"></i>
+          <p class="qt">Meal plan</p><p class="qs">Weekly schedule</p>
+        </div>
+        <div class="qcard" onclick="showPage('members',document.querySelectorAll('.side-btn')[1])">
+          <i class="ti ti-users"></i>
+          <p class="qt">Members</p><p class="qs">All 9 members</p>
+        </div>
+        <div class="qcard" onclick="showPage('notices',document.querySelectorAll('.side-btn')[4])">
+          <i class="ti ti-bell"></i>
+          <p class="qt">Notices</p><p class="qs">Important updates</p>
+        </div>
       </div>
+    </div>
 
-      <div style="margin-top:8px;font-size:12px;color:#666">
-        After payment, send payment screenshot to the admin.
+    <!-- MEMBERS -->
+    <div id="page-members" class="page">
+      <div class="ph"><h2>SQUAD ROSTER</h2><p>9 active members</p></div>
+      <div class="mgrid">
+        <div class="mc"><div class="av" style="background:#1a1228;color:#AFA9EC">JK</div><div class="mn">Jesan</div><div class="mt">ADMIN</div></div>
+        <div class="mc"><div class="av" style="background:#0a1f14;color:#5DCAA5">SS</div><div class="mn">Subhasis</div><div class="mt">MEMBER</div></div>
+        <div class="mc"><div class="av" style="background:#1f0f0a;color:#F0997B">SG</div><div class="mn">Sourish</div><div class="mt">MEMBER</div></div>
+        <div class="mc"><div class="av" style="background:#1f0a14;color:#ED93B1">SR</div><div class="mn">Shahzad</div><div class="mt">MEMBER</div></div>
+        <div class="mc"><div class="av" style="background:#0f1f0a;color:#97C459">DN</div><div class="mn">Diganta</div><div class="mt">MEMBER</div></div>
+        <div class="mc"><div class="av" style="background:#1f180a;color:#FAC775">SS</div><div class="mn">Surjya</div><div class="mt">MEMBER</div></div>
+        <div class="mc"><div class="av" style="background:#0a1428;color:#85B7EB">SS</div><div class="mn">Soumadip</div><div class="mt">MEMBER</div></div>
+        <div class="mc"><div class="av" style="background:#1f0a0a;color:#F09595">AJ</div><div class="mn">Avijit</div><div class="mt">MEMBER</div></div>
+        <div class="mc"><div class="av" style="background:#1a1a14;color:#B4B2A9">NM</div><div class="mn">Neha</div><div class="mt">MEMBER</div></div>
       </div>
+    </div>
 
+    <!-- EXPENSES -->
+    <div id="page-expenses" class="page">
+      <div class="ph"><h2>MONTHLY EXPENSES</h2><p>June 2026 · 79% collected</p></div>
+      <div class="panel">
+        <div class="er">
+          <div><div class="el">Groceries &amp; Food</div><div class="es">Weekly market</div></div>
+          <div style="display:flex;align-items:center;gap:7px"><span style="font-weight:700">₹12,000</span><span class="badge bg">PAID</span></div>
+        </div>
+        <div class="er">
+          <div><div class="el">Gas / Cooking Fuel</div><div class="es">Monthly</div></div>
+          <div style="display:flex;align-items:center;gap:7px"><span style="font-weight:700">₹2,800</span><span class="badge bg">PAID</span></div>
+        </div>
+        <div class="er">
+          <div><div class="el">Electricity</div><div class="es">Monthly</div></div>
+          <div style="display:flex;align-items:center;gap:7px"><span style="font-weight:700">₹2,200</span><span class="badge ba">PENDING</span></div>
+        </div>
+        <div class="er">
+          <div><div class="el">Miscellaneous</div><div class="es">Cleaning, toiletries</div></div>
+          <div style="display:flex;align-items:center;gap:7px"><span style="font-weight:700">₹1,800</span><span class="badge ba">PENDING</span></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:9px 0;font-weight:700;font-size:14px;border-top:1px solid rgba(255,255,255,0.06);margin-top:3px">
+          <span>Total Monthly</span>
+          <span style="color:#ffd050;font-family:'Orbitron',sans-serif;font-size:13px">₹18,800</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600">
+          <span style="color:#667788">Per person (9 members)</span>
+          <span style="color:#ffd050;font-family:'Orbitron',sans-serif">₹2,089</span>
+        </div>
+        <div style="margin-top:9px">
+          <div style="display:flex;justify-content:space-between;font-family:'Share Tech Mono',monospace;font-size:10px;color:#556677;margin-bottom:4px">
+            <span>Collected: ₹14,800</span><span>Target: ₹18,800</span>
+          </div>
+          <div class="pb"><div class="pf" style="width:79%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEALS -->
+    <div id="page-meals" class="page">
+      <div class="ph"><h2>WEEKLY MEAL PLAN</h2><p>Mess ration schedule</p></div>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Day</th><th>Lunch</th><th>Dinner</th><th>Market</th><th>Responsible</th></tr></thead>
+          <tbody>
+            <tr><td>Monday</td><td>Fish</td><td>Vegetables</td><td>Morning</td><td>Avijit + Surjya</td></tr>
+            <tr><td>Tuesday</td><td>Egg</td><td>Soyabean</td><td>Evening</td><td>Neha + Shahzad</td></tr>
+            <tr><td>Wednesday</td><td>Fish</td><td>Vegetables</td><td>Morning</td><td>Sourish + Soumadip</td></tr>
+            <tr><td>Thursday</td><td>Chicken</td><td>Soyabean</td><td>Evening</td><td>Jesan + Subhasis</td></tr>
+            <tr><td>Friday</td><td>Fish</td><td>Vegetables</td><td>Morning</td><td>Neha + Shahzad</td></tr>
+            <tr><td>Saturday</td><td>Egg</td><td>Soyabean</td><td>Evening</td><td>Avijit + Surjya</td></tr>
+            <tr><td>Sunday (L)</td><td>Vegetables</td><td>—</td><td>Morning</td><td>Jesan + Subhasis</td></tr>
+            <tr><td>Sunday (D)</td><td>—</td><td>Chicken</td><td>Evening</td><td>Sourish + Soumadip</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">⚠️ Those whose turn it is to go to the market should ensure they collect the necessary funds and clarify exactly what needs to be purchased in advance.</div>
+    </div>
+
+    <!-- NOTICES -->
+    <div id="page-notices" class="page">
+      <div class="ph"><h2>NOTICE BOARD</h2><p>3 active notices</p></div>
+      <div class="notice">
+        <div style="font-size:18px;flex-shrink:0">📢</div>
+        <div>
+          <div class="title">Monthly expense due — ₹2,350 per person</div>
+          <div class="text">Please submit your share by 5th of every month. Contact Jesan for payment.</div>
+          <div class="date">// Posted by Jesan · PINNED</div>
+        </div>
+      </div>
+      <div class="notice">
+        <div style="font-size:18px;flex-shrink:0">🧹</div>
+        <div>
+          <div class="title">Cleaning rotation updated</div>
+          <div class="text">New schedule starts Monday. Check the chart on the notice board.</div>
+          <div class="date">// Posted by Subhasis · 3 days ago</div>
+        </div>
+      </div>
+      <div class="notice">
+        <div style="font-size:18px;flex-shrink:0">🛒</div>
+        <div>
+          <div class="title">Market reminder</div>
+          <div class="text">Collect funds and confirm shopping list before heading to market. No last minute changes!</div>
+          <div class="date">// Posted by Sourish · 1 week ago</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYMENTS -->
+    <div id="page-payments" class="page">
+      <div class="ph"><h2>PAYMENT CENTER</h2><p>Scan &amp; pay monthly dues</p></div>
+      <div class="panel" style="text-align:center">
+        <img src="upi-qr.jpg" alt="UPI QR" style="max-width:200px;width:100%;border:2px solid rgba(255,200,0,0.35);display:block;margin:0 auto 12px;">
+        <div style="font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:#ffd050;letter-spacing:.1em;text-shadow:0 0 10px rgba(255,200,0,.4)">SCAN &amp; PAY</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:#667788;margin-top:4px">Monthly Mess Payment</div>
+        <div class="note" style="margin:12px auto;max-width:260px">PER HEAD AMOUNT: ₹2,350</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:#667788">ADMIN: Jesan Khan</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#445566;margin-top:5px">After payment, send screenshot to admin.</div>
+      </div>
+    </div>
+
+  </div><!-- /center-stage -->
+
+  <!-- RIGHT COL -->
+  <div class="right-col">
+    <div class="rp" style="color:#AFA9EC">JK<div class="rp-name">Jesan</div></div>
+    <div class="rp-add">+</div>
+    <div class="rp" style="color:#5DCAA5">SS<div class="rp-name">Subhasis</div></div>
+    <div class="rp-add">+</div>
+    <div class="rp" style="color:#F0997B">SG<div class="rp-name">Sourish</div></div>
+    <div class="rp-add">+</div>
+    <div class="rp" style="color:#ED93B1">SR<div class="rp-name">Shahzad</div></div>
+    <div class="rp-add">+</div>
+    <div class="r-arrow">❮</div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- ═══════════ BOTTOM BAR ═══════════ -->
+<div class="bot-bar">
+
+  <div class="bot-ff-logo">FF</div>
+
+  <div class="bot-nav">
+    <button class="bot-btn" onclick="showPage('home',document.querySelectorAll('.side-btn')[0])">
+      <i class="ti ti-layout-dashboard"></i><span>VAULT</span>
+    </button>
+    <button class="bot-btn" onclick="showPage('expenses',document.querySelectorAll('.side-btn')[2])">
+      <i class="ti ti-sword"></i><span>WEAPON</span>
+    </button>
+    <button class="bot-btn" onclick="showPage('meals',document.querySelectorAll('.side-btn')[3])">
+      <i class="ti ti-layout-grid"></i><span>PRESET</span>
+    </button>
+    <button class="bot-btn" onclick="showPage('notices',document.querySelectorAll('.side-btn')[4])">
+      <i class="ti ti-flask"></i><span>LAB</span>
+    </button>
+  </div>
+
+  <div class="bot-right">
+    <div class="mode-row">
+      <div class="mode-icon">🏆</div>
+      <div class="mode-text">
+        <div class="mt1">MESS-RANKED</div>
+        <div class="mt2"><i class="ti ti-star"></i> Kalyani </div>
+      </div>
+    </div>
+    <div class="start-row">
+      <div class="start-num">
+        <div class="sn1">1</div>
+        <div class="sn2">◆</div>
+      </div>
+      <button class="start-btn" onclick="showPage('members',document.querySelectorAll('.side-btn')[1])">
+        START
+      </button>
     </div>
   </div>
-</div>  
+
+</div>
 
 <script>
 function showPage(id, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nb').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.side-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   if(btn) btn.classList.add('active');
 }
