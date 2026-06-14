@@ -474,9 +474,58 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;b
   .start-btn{font-size:16px;}
   .ascii{font-size:6px;}
 }
+
+/* PAYMENT MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;padding:16px}
+.modal-overlay.active{display:flex}
+.modal{background:var(--card);border:1px solid var(--border);border-top:2px solid var(--gold);width:100%;max-width:380px;animation:modalIn .25s ease}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.modal-header{background:linear-gradient(135deg,#0d1218,#111820);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.modal-title{font-family:'Teko',sans-serif;font-size:16px;font-weight:700;letter-spacing:.1em;color:var(--gold)}
+.modal-close{background:none;border:none;color:var(--text-dim);font-size:20px;cursor:pointer;line-height:1;transition:color .2s}
+.modal-close:hover{color:var(--gold)}
+.modal-body{padding:16px}
+.modal-player{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.modal-avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Teko',sans-serif;font-size:18px;font-weight:700;border:2px solid var(--gold)}
+.modal-info .name{font-family:'Teko',sans-serif;font-size:18px;color:var(--text);letter-spacing:.05em}
+.modal-info .role{font-size:11px;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase}
+.payment-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px}
+.payment-row:last-of-type{border-bottom:none}
+.pay-label{color:var(--text-dim);font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+.pay-val{font-family:'Teko',sans-serif;font-size:16px}
+.pay-paid{color:var(--green)}
+.pay-due{color:var(--red)}
+.pay-total{color:var(--gold-light)}
+.progress-bar{height:6px;background:var(--border);border-radius:3px;margin:12px 0 6px;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--green),#81c784);transition:width 1s ease}
+.progress-fill.red{background:linear-gradient(90deg,var(--red),#ef9a9a)}
+.progress-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text-dim);letter-spacing:.06em}
+.badge-status{display:inline-block;padding:4px 12px;font-family:'Teko',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;margin-top:12px;width:100%;text-align:center}
+.badge-clear{background:rgba(76,175,80,0.15);color:#66bb6a;border:1px solid rgba(76,175,80,0.3)}
+.badge-partial{background:rgba(232,124,42,0.15);color:var(--orange);border:1px solid rgba(232,124,42,0.3)}
+.badge-due{background:rgba(231,76,60,0.15);color:#ef5350;border:1px solid rgba(231,76,60,0.3)}
+.payment-history{margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+.history-title{font-family:'Teko',sans-serif;font-size:12px;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.history-item{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border)}
+.history-item:last-child{border-bottom:none}
+.history-date{color:var(--text-dim)}
+.history-amt{color:var(--green);font-family:'Teko',sans-serif;font-size:13px}
+
+
 </style>
 </head>
 <body>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title">💰 PAYMENT STATUS</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
 
 <div class="bg"></div>
 
@@ -608,15 +657,15 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;b
     <div id="page-members" class="page">
       <div class="ph"><h2>SQUAD ROSTER</h2><p>9 active members</p></div>
       <div class="mgrid">
-        <div class="mc"><div class="av" style="background:#1a1228;color:#AFA9EC">JK</div><div class="mn">Jesan</div><div class="mt">ADMIN</div></div>
-        <div class="mc"><div class="av" style="background:#0a1f14;color:#5DCAA5">SS</div><div class="mn">Subhasis</div><div class="mt">MEMBER</div></div>
-        <div class="mc"><div class="av" style="background:#1f0f0a;color:#F0997B">SG</div><div class="mn">Sourish</div><div class="mt">MEMBER</div></div>
-        <div class="mc"><div class="av" style="background:#1f0a14;color:#ED93B1">SR</div><div class="mn">Shahzad</div><div class="mt">MEMBER</div></div>
-        <div class="mc"><div class="av" style="background:#0f1f0a;color:#97C459">DN</div><div class="mn">Diganta</div><div class="mt">MEMBER</div></div>
-        <div class="mc"><div class="av" style="background:#1f180a;color:#FAC775">SS</div><div class="mn">Surjya</div><div class="mt">MEMBER</div></div>
-        <div class="mc"><div class="av" style="background:#0a1428;color:#85B7EB">SS</div><div class="mn">Soumadip</div><div class="mt">MEMBER</div></div>
-        <div class="mc"><div class="av" style="background:#1f0a0a;color:#F09595">AJ</div><div class="mn">Avijit</div><div class="mt">MEMBER</div></div>
-        <div class="mc"><div class="av" style="background:#1a1a14;color:#B4B2A9">NM</div><div class="mn">Neha</div><div class="mt">MEMBER</div></div>
+        <div class="mc" onclick="openModal('jesan')"><div class="av" style="background:#1a1228;color:#AFA9EC">JK</div><div class="mn">Jesan</div><div class="mt">ADMIN</div></div>
+        <div class="mc" onclick="openModal('subhasis')"><div class="av" style="background:#0a1f14;color:#5DCAA5">SS</div><div class="mn">Subhasis</div><div class="mt">MEMBER</div></div>
+        <div class="mc" onclick="openModal('sourish')"><div class="av" style="background:#1f0f0a;color:#F0997B">SG</div><div class="mn">Sourish</div><div class="mt">MEMBER</div></div>
+        <div class="mc" onclick="openModal('shahzad')"><div class="av" style="background:#1f0a14;color:#ED93B1">SR</div><div class="mn">Shahzad</div><div class="mt">MEMBER</div></div>
+        <div class="mc" onclick="openModal('diganta')"><div class="av" style="background:#0f1f0a;color:#97C459">DN</div><div class="mn">Diganta</div><div class="mt">MEMBER</div></div>
+        <div class="mc" onclick="openModal('surjya')"><div class="av" style="background:#1f180a;color:#FAC775">SS</div><div class="mn">Surjya</div><div class="mt">MEMBER</div></div>
+        <div class="mc" onclick="openModal('soumadip')"><div class="av" style="background:#0a1428;color:#85B7EB">SS</div><div class="mn">Soumadip</div><div class="mt">MEMBER</div></div>
+        <div class="mc" onclick="openModal('avijit')"><div class="av" style="background:#1f0a0a;color:#F09595">AJ</div><div class="mn">Avijit</div><div class="mt">MEMBER</div></div>
+        <div class="mc" onclick="openModal('neha')"><div class="av" style="background:#1a1a14;color:#B4B2A9">NM</div><div class="mn">Neha</div><div class="mt">MEMBER</div></div>
       </div>
     </div>
 
@@ -785,6 +834,46 @@ function showPage(id, btn) {
   document.getElementById('page-' + id).classList.add('active');
   if(btn) btn.classList.add('active');
 }
+
+const members={
+jesan:{name:'Jesan',initials:'JK',bg:'#1a1228',color:'#AFA9EC',total:2350,paid:2350,history:[{date:'Jun 1',amt:2350}]},
+subhasis:{name:'Subhasis',initials:'SS',bg:'#0a1f14',color:'#5DCAA5',total:2350,paid:1500,history:[{date:'Jun 2',amt:1500}]},
+sourish:{name:'Sourish',initials:'SG',bg:'#1f0f0a',color:'#F0997B',total:2350,paid:1000,history:[{date:'Jun 3',amt:1000}]},
+shahzad:{name:'Shahzad',initials:'SR',bg:'#1f0a14',color:'#ED93B1',total:2350,paid:2350,history:[{date:'Jun 1',amt:2350}]},
+diganta:{name:'Diganta',initials:'DN',bg:'#0f1f0a',color:'#97C459',total:2350,paid:1200,history:[{date:'Jun 5',amt:1200}]},
+surjya:{name:'Surjya',initials:'SS',bg:'#1f180a',color:'#FAC775',total:2350,paid:2350,history:[{date:'Jun 2',amt:2350}]},
+soumadip:{name:'Soumadip',initials:'SS',bg:'#0a1428',color:'#85B7EB',total:2350,paid:1800,history:[{date:'Jun 4',amt:1800}]},
+avijit:{name:'Avijit',initials:'AJ',bg:'#1f0a0a',color:'#F09595',total:2350,paid:0,history:[]},
+neha:{name:'Neha',initials:'NM',bg:'#1a1a14',color:'#B4B2A9',total:2350,paid:500,history:[{date:'Jun 5',amt:500}]}
+};
+
+function openModal(id){
+const m=members[id];
+const due=m.total-m.paid;
+const pct=Math.round((m.paid/m.total)*100);
+const status=due===0?'CLEARED':m.paid>0?'PARTIAL':'NOT PAID';
+const statusClass=due===0?'badge-clear':m.paid>0?'badge-partial':'badge-due';
+const fillClass=due===0?'':'red';
+const historyHtml=m.history.length?m.history.map(h=>`<div class="history-item"><span class="history-date">${h.date}</span><span class="history-amt">+₹${h.amt}</span></div>`).join(''):'<div style="font-size:12px;color:#888">No payments yet</div>';
+document.getElementById('modalBody').innerHTML=`
+<div class="modal-player">
+<div class="modal-avatar" style="background:${m.bg};color:${m.color}">${m.initials}</div>
+<div class="modal-info"><div class="name">${m.name}</div><div class="role">AL-QAEDA MESS MEMBER</div></div>
+</div>
+<div class="payment-row"><span class="pay-label">Monthly Share</span><span class="pay-val pay-total">₹${m.total}</span></div>
+<div class="payment-row"><span class="pay-label">Amount Paid</span><span class="pay-val pay-paid">₹${m.paid}</span></div>
+<div class="payment-row"><span class="pay-label">Amount Due</span><span class="pay-val ${due>0?'pay-due':'pay-paid'}">₹${due}</span></div>
+<div class="progress-bar"><div class="progress-fill ${fillClass}" style="width:${pct}%"></div></div>
+<div class="progress-labels"><span>${pct}% Completed</span><span>₹${m.total}</span></div>
+<div class="badge-status ${statusClass}">${status}</div>
+<div class="payment-history"><div class="history-title">Payment History</div>${historyHtml}</div>`;
+document.getElementById('modalOverlay').classList.add('active');
+}
+function closeModal(e){
+if(!e || e.target===document.getElementById('modalOverlay'))
+document.getElementById('modalOverlay').classList.remove('active');
+}
+
 </script>
 </body>
 </html>
